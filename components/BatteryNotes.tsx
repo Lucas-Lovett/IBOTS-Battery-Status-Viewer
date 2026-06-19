@@ -1,5 +1,5 @@
 import React from "react";
-import type { Battery, BatteryStatus } from "@/types/batteries";
+import type { Battery } from "@/types/batteries";
 
 interface BatteryNotesProps {
   notes: string;

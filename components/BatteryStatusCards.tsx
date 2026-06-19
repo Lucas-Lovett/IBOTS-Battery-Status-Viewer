@@ -10,6 +10,7 @@ import BatteryNotes from "./BatteryNotes";
 import UndoBatteryUsed from "./UndoBatteryUsed";
 import BatteryStatus from "./BatteryStatus";
 import type { Battery } from "@/types/batteries";
+import RecommendedBattery from "./RecommendedBattery";
 
 const BatteryStatusCards = () => {
   const [batteries, setBatteries] = React.useState<Battery[]>(
@@ -38,6 +39,12 @@ const BatteryStatusCards = () => {
 
   return (
     <div>
+      <div>
+        <RecommendedBattery
+          batteries={batteries}
+        />
+      </div>
+
       <div>
         {batteries.map((battery, index) => (
           <div key={index}>

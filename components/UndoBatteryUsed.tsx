@@ -27,11 +27,7 @@ const UndoBatteryUsed = ({
     });
   };
 
-  return (
-    <button className="button" onClick={undo}>
-      Undo
-    </button>
-  );
+  return <button onClick={undo}>Undo</button>;
 };
 
 export default UndoBatteryUsed;

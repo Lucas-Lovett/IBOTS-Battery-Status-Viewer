@@ -15,15 +15,14 @@ const BatteryStatus = ({
   updateBattery,
 }: BatteryStatusProps) => {
   return (
-    <div className="field">
-      <label className="label">Status:</label>
+    <div>
+      <label>Status:</label>
 
-      <div className="statusGroup">
+      <div>
         {options.map((option) => (
           <button
             key={option}
             data-active={status === option}
-            className="statusButton"
             onClick={() => updateBattery(batteryIndex, { status: option })}
           >
             {option}

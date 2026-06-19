@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+:root {
+  --bg: #252525;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  font-family: Inter, sans-serif;
+}

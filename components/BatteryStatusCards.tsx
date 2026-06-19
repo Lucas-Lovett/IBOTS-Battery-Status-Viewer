@@ -38,9 +38,9 @@ const BatteryStatusCards = () => {
 
   return (
     <div>
-      <div className="grid">
+      <div>
         {batteries.map((battery, index) => (
-          <div key={index} className="statusCard">
+          <div key={index}>
             <BatteryName
               name={battery.name}
               batteryIndex={index}
@@ -62,7 +62,7 @@ const BatteryStatusCards = () => {
               updateBattery={updateBattery}
             />
 
-            <div className="text">Last used {battery.lastUsed} matches ago</div>
+            <div>Last used {battery.lastUsed} matches ago</div>
 
             <BatteryUsed
               batteryIndex={index}
@@ -71,9 +71,7 @@ const BatteryStatusCards = () => {
               setHistory={setHistory}
             />
 
-            <div className="text">
-              Battery last checked at: {battery.lastChecked}
-            </div>
+            <div>Battery last checked at: {battery.lastChecked}</div>
 
             <BatteryNotes
               notes={battery.notes}
@@ -84,7 +82,7 @@ const BatteryStatusCards = () => {
         ))}
       </div>
 
-      <div className="actions">
+      <div>
         <ResetInfo setBatteries={setBatteries} setHistory={setHistory} />
         <UndoBatteryUsed setHistory={setHistory} setBatteries={setBatteries} />
       </div>

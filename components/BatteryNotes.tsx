@@ -13,10 +13,9 @@ const BatteryNotes = ({
   setBatteries,
 }: BatteryNotesProps) => {
   return (
-    <div className="field">
-      <label className="label">Notes:</label>
+    <div>
+      <label>Notes:</label>
       <textarea
-        className="input textarea"
         value={notes}
         onChange={(e) =>
           setBatteries((prev) =>

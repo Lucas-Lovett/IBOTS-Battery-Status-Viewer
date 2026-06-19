@@ -12,38 +12,63 @@ import BatteryStatus from "./BatteryStatus";
 import type { Battery } from "@/types/batteries";
 import RecommendedBattery from "./RecommendedBattery";
 
+const storageKey = "batteries";
+
+const defaultBatteries: Battery[] = Array.from({ length: 12 }, () => ({
+  name: "",
+  lastUsed: 0,
+  voltage: "",
+  resistance: "",
+  notes: "",
+  lastChecked: "Never",
+  status: "Good",
+}));
+
 const BatteryStatusCards = () => {
-  const [batteries, setBatteries] = React.useState<Battery[]>(
-    Array.from({ length: 12 }, () => ({
-      name: "",
-      lastUsed: 0,
-      voltage: "",
-      resistance: "",
-      notes: "",
-      lastChecked: "Never",
-      status: "Good",
-    })),
-  );
+  const [batteries, setBatteries] =
+    React.useState<Battery[]>(defaultBatteries);
+
+  const [isLoaded, setIsLoaded] = React.useState(false);
 
   const [, setHistory] = React.useState<number[][]>([]);
+
+  React.useEffect(() => {
+    const saved = localStorage.getItem(storageKey);
+
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved) as Battery[];
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setBatteries(parsed);
+      } catch {
+      }
+    }
+
+    setIsLoaded(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (!isLoaded) return;
+    localStorage.setItem(storageKey, JSON.stringify(batteries));
+  }, [batteries, isLoaded]);
 
   const updateBattery = (index: number, changes: Partial<Battery>) => {
     setBatteries((prev) =>
       prev.map((b, i) =>
         i === index
-          ? { ...b, ...changes, lastChecked: new Date().toLocaleTimeString() }
-          : b,
-      ),
+          ? {
+              ...b,
+              ...changes,
+              lastChecked: new Date().toLocaleTimeString(),
+            }
+          : b
+      )
     );
   };
 
   return (
     <div>
-      <div>
-        <RecommendedBattery
-          batteries={batteries}
-        />
-      </div>
+      <RecommendedBattery batteries={batteries} />
 
       <div>
         {batteries.map((battery, index) => (
@@ -53,16 +78,19 @@ const BatteryStatusCards = () => {
               batteryIndex={index}
               setBatteries={setBatteries}
             />
+
             <BatteryVoltage
               voltage={battery.voltage}
               batteryIndex={index}
               updateBattery={updateBattery}
             />
+
             <BatteryResistance
               resistance={battery.resistance}
               batteryIndex={index}
               updateBattery={updateBattery}
             />
+
             <BatteryStatus
               batteryIndex={index}
               status={battery.status}
@@ -78,7 +106,9 @@ const BatteryStatusCards = () => {
               setHistory={setHistory}
             />
 
-            <div>Battery last checked at: {battery.lastChecked}</div>
+            <div>
+              Battery last checked at: {battery.lastChecked}
+            </div>
 
             <BatteryNotes
               notes={battery.notes}

@@ -1,20 +1,10 @@
 import React from "react";
+import type { Battery, BatteryStatus } from "@/types/batteries";
 
 interface BatteryNameProps {
   name: string;
   batteryIndex: number;
-  setBatteries: React.Dispatch<
-    React.SetStateAction<
-      {
-        name: string;
-        lastUsed: number;
-        voltage: string;
-        resistance: string;
-        notes: string;
-        lastChecked: string;
-      }[]
-    >
-  >;
+  setBatteries: React.Dispatch<React.SetStateAction<Battery[]>>;
 }
 
 const BatteryName = ({
@@ -23,7 +13,7 @@ const BatteryName = ({
   setBatteries,
 }: BatteryNameProps) => {
   return (
-    <div className="mb-3">
+    <div className="field">
       <label className="label">Battery Name:</label>
       <input
         className="input"
@@ -31,14 +21,11 @@ const BatteryName = ({
         value={name}
         onChange={(e) =>
           setBatteries((prev) =>
-            prev.map((battery, index) =>
-              index === batteryIndex
-                ? { ...battery, name: e.target.value }
-                : battery,
+            prev.map((b, i) =>
+              i === batteryIndex ? { ...b, name: e.target.value } : b,
             ),
           )
         }
-        placeholder="Battery Name"
       />
     </div>
   );

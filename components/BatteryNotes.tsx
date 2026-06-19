@@ -1,20 +1,10 @@
 import React from "react";
+import type { Battery, BatteryStatus } from "@/types/batteries";
 
 interface BatteryNotesProps {
   notes: string;
   batteryIndex: number;
-  setBatteries: React.Dispatch<
-    React.SetStateAction<
-      {
-        name: string;
-        lastUsed: number;
-        voltage: string;
-        resistance: string;
-        notes: string;
-        lastChecked: string;
-      }[]
-    >
-  >;
+  setBatteries: React.Dispatch<React.SetStateAction<Battery[]>>;
 }
 
 const BatteryNotes = ({
@@ -23,21 +13,18 @@ const BatteryNotes = ({
   setBatteries,
 }: BatteryNotesProps) => {
   return (
-    <div className="flex flex-col mb-3">
+    <div className="field">
       <label className="label">Notes:</label>
       <textarea
-        className="input"
+        className="input textarea"
         value={notes}
         onChange={(e) =>
           setBatteries((prev) =>
-            prev.map((battery, index) =>
-              index === batteryIndex
-                ? { ...battery, notes: e.target.value }
-                : battery,
+            prev.map((b, i) =>
+              i === batteryIndex ? { ...b, notes: e.target.value } : b,
             ),
           )
         }
-        placeholder="Battery Notes"
       />
     </div>
   );

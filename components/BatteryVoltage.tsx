@@ -13,7 +13,7 @@ const BatteryVoltage = ({
   updateBattery,
 }: BatteryVoltageProps) => {
   return (
-    <div className="mb-3">
+    <div className="field">
       <label className="label">Battery Voltage:</label>
       <input
         className="input"
@@ -24,7 +24,6 @@ const BatteryVoltage = ({
             voltage: e.target.value,
           })
         }
-        placeholder="Battery Voltage"
       />
     </div>
   );

@@ -13,7 +13,7 @@ const BatteryResistance = ({
   updateBattery,
 }: BatteryResistanceProps) => {
   return (
-    <div className="mb-3">
+    <div className="field">
       <label className="label">Battery Resistance:</label>
       <input
         className="input"
@@ -24,7 +24,6 @@ const BatteryResistance = ({
             resistance: e.target.value,
           })
         }
-        placeholder="Battery Resistance"
       />
     </div>
   );

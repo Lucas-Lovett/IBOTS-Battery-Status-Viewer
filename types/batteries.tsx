@@ -5,4 +5,7 @@ export type Battery = {
   resistance: string;
   notes: string;
   lastChecked: string;
+  status: BatteryStatus;
 };
+
+export type BatteryStatus = "Poor" | "Fair" | "Good";

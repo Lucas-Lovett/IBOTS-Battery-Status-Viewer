@@ -39,7 +39,7 @@ const BatteryUsed = ({
 
   return (
     <div>
-      <button className="btn" onClick={useBatteryClick}>
+      <button className="button" onClick={useBatteryClick}>
         Use Battery
       </button>
     </div>

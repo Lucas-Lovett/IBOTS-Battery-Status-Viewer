@@ -8,6 +8,7 @@ import BatteryVoltage from "./BatteryVoltage";
 import BatteryResistance from "./BatteryResistance";
 import BatteryNotes from "./BatteryNotes";
 import UndoBatteryUsed from "./UndoBatteryUsed";
+import BatteryStatus from "./BatteryStatus";
 import type { Battery } from "@/types/batteries";
 
 const BatteryStatusCards = () => {
@@ -19,6 +20,7 @@ const BatteryStatusCards = () => {
       resistance: "",
       notes: "",
       lastChecked: "Never",
+      status: "Good",
     })),
   );
 
@@ -26,42 +28,41 @@ const BatteryStatusCards = () => {
 
   const updateBattery = (index: number, changes: Partial<Battery>) => {
     setBatteries((prev) =>
-      prev.map((battery, i) =>
+      prev.map((b, i) =>
         i === index
-          ? {
-              ...battery,
-              ...changes,
-              lastChecked: new Date().toLocaleTimeString(),
-            }
-          : battery,
+          ? { ...b, ...changes, lastChecked: new Date().toLocaleTimeString() }
+          : b,
       ),
     );
   };
 
   return (
     <div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid">
         {batteries.map((battery, index) => (
-          <div key={index} className="border rounded-lg p-4">
+          <div key={index} className="statusCard">
             <BatteryName
               name={battery.name}
               batteryIndex={index}
               setBatteries={setBatteries}
             />
-
             <BatteryVoltage
               voltage={battery.voltage}
               batteryIndex={index}
               updateBattery={updateBattery}
             />
-
             <BatteryResistance
               resistance={battery.resistance}
               batteryIndex={index}
               updateBattery={updateBattery}
             />
+            <BatteryStatus
+              batteryIndex={index}
+              status={battery.status}
+              updateBattery={updateBattery}
+            />
 
-            <h1>Last used {battery.lastUsed} matches ago</h1>
+            <div className="text">Last used {battery.lastUsed} matches ago</div>
 
             <BatteryUsed
               batteryIndex={index}
@@ -70,9 +71,9 @@ const BatteryStatusCards = () => {
               setHistory={setHistory}
             />
 
-            <h1>Battery last checked at: {battery.lastChecked}</h1>
-
-            <h1>Notes:</h1>
+            <div className="text">
+              Battery last checked at: {battery.lastChecked}
+            </div>
 
             <BatteryNotes
               notes={battery.notes}
@@ -83,7 +84,7 @@ const BatteryStatusCards = () => {
         ))}
       </div>
 
-      <div className="flex justify-center mt-6 gap-4">
+      <div className="actions">
         <ResetInfo setBatteries={setBatteries} setHistory={setHistory} />
         <UndoBatteryUsed setHistory={setHistory} setBatteries={setBatteries} />
       </div>

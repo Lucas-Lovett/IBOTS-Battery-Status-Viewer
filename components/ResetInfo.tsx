@@ -1,23 +1,43 @@
-"use client"
-import React from 'react'
+"use client";
+import React from "react";
 
 interface ResetInfoProps {
-    setBatteries: React.Dispatch<React.SetStateAction<{ name: string; lastUsed: number }[]>>
+  setBatteries: React.Dispatch<
+    React.SetStateAction<
+      {
+        name: string;
+        lastUsed: number;
+        voltage: string;
+        resistance: string;
+        notes: string;
+        lastChecked: string;
+      }[]
+    >
+  >;
+  setHistory: React.Dispatch<React.SetStateAction<number[][]>>;
 }
 
-const ResetInfo = ({ setBatteries }: ResetInfoProps) => {
+const ResetInfo = ({ setBatteries, setHistory }: ResetInfoProps) => {
+  function resetInfoClick() {
+    setBatteries((prev) =>
+      prev.map((battery) => ({
+        ...battery,
+        lastUsed: 0,
+        name: "",
+        voltage: "",
+        resistance: "",
+        notes: "",
+        lastChecked: "Never",
+      })),
+    );
+    setHistory([]);
+  }
 
-    function resetInfoClick() {
-        setBatteries(prev =>
-            prev.map(battery => ({ ...battery, lastUsed: 0, name: "" }))
-        )
-    }
+  return (
+    <button className="btn" onClick={resetInfoClick}>
+      Reset Info
+    </button>
+  );
+};
 
-    return (
-        <button onClick={resetInfoClick}>
-            Reset Info
-        </button>
-    )
-}
-
-export default ResetInfo
+export default ResetInfo;

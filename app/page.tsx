@@ -4,8 +4,7 @@ import BatteryStatusCards from "../components/BatteryStatusCards";
 const page = () => {
   return (
     <div>
-      <BatteryStatusCards 
-      />
+      <BatteryStatusCards />
     </div>
   );
 };

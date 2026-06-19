@@ -1,25 +1,49 @@
-import React from 'react'
+import React from "react";
+import type { Battery } from "@/types/batteries";
 
 interface BatteryUsedProps {
-    batteryIndex: number
-    setBatteries: React.Dispatch<React.SetStateAction<{ name: string; lastUsed: number }[]>>
+  batteryIndex: number;
+  batteries: {
+    name: string;
+    lastUsed: number;
+    voltage: string;
+    resistance: string;
+    notes: string;
+  }[];
+  updateBattery: (index: number, changes: Partial<Battery>) => void;
+  setHistory: React.Dispatch<React.SetStateAction<number[][]>>;
 }
 
-const BatteryUsed = ({batteryIndex, setBatteries }: BatteryUsedProps) => {
+const BatteryUsed = ({
+  batteryIndex,
+  batteries,
+  updateBattery,
+  setHistory,
+}: BatteryUsedProps) => {
+  function useBatteryClick() {
+    setHistory((prev) => [
+      ...prev,
+      batteries.map((battery) => battery.lastUsed),
+    ]);
 
-    function useBatteryClick() {
-        setBatteries(prev =>
-            prev.map((battery, index) =>
-                index === batteryIndex ? { ...battery, lastUsed: battery.lastUsed + 1 } : battery
-            )
-        )
-    }
+    batteries.forEach((battery, index) => {
+      if (index === batteryIndex) {
+        updateBattery(index, { lastUsed: 0 });
+      } else {
+        updateBattery(index, {
+          lastUsed: battery.lastUsed + 1,
+        });
+      }
+    });
+  }
 
-    return (
-        <button onClick={useBatteryClick}>
-            Battery Used
-        </button>
-    )
-}
+  return (
+    <div>
+      <button className="btn" onClick={useBatteryClick}>
+        Use Battery
+      </button>
+    </div>
+  );
+};
 
-export default BatteryUsed
+export default BatteryUsed;

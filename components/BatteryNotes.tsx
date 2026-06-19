@@ -1,7 +1,7 @@
 import React from "react";
 
-interface BatteryNameProps {
-  name: string;
+interface BatteryNotesProps {
+  notes: string;
   batteryIndex: number;
   setBatteries: React.Dispatch<
     React.SetStateAction<
@@ -17,31 +17,30 @@ interface BatteryNameProps {
   >;
 }
 
-const BatteryName = ({
-  name,
+const BatteryNotes = ({
+  notes,
   batteryIndex,
   setBatteries,
-}: BatteryNameProps) => {
+}: BatteryNotesProps) => {
   return (
-    <div className="mb-3">
-      <label className="label">Battery Name:</label>
-      <input
+    <div className="flex flex-col mb-3">
+      <label className="label">Notes:</label>
+      <textarea
         className="input"
-        type="text"
-        value={name}
+        value={notes}
         onChange={(e) =>
           setBatteries((prev) =>
             prev.map((battery, index) =>
               index === batteryIndex
-                ? { ...battery, name: e.target.value }
+                ? { ...battery, notes: e.target.value }
                 : battery,
             ),
           )
         }
-        placeholder="Battery Name"
+        placeholder="Battery Notes"
       />
     </div>
   );
 };
 
-export default BatteryName;
+export default BatteryNotes;

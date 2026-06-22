@@ -24,7 +24,7 @@ const ResetInfo = ({ setBatteries, setHistory }: ResetInfoProps) => {
     setHistory([]);
   };
 
-  return <button onClick={reset}>Reset Info</button>;
+  return <button className="button utilityButton" onClick={reset}>Reset Info</button>;
 };
 
 export default ResetInfo;

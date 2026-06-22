@@ -15,10 +15,10 @@ const BatteryStatus = ({
   updateBattery,
 }: BatteryStatusProps) => {
   return (
-    <div>
-      <label>Status:</label>
+    <div className="labelContainer">
+      <label className="label">Status:</label>
 
-      <div>
+      <div className="statusButtons">
         {options.map((option) => (
           <button
             key={option}

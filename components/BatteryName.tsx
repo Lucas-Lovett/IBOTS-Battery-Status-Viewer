@@ -13,9 +13,10 @@ const BatteryName = ({
   setBatteries,
 }: BatteryNameProps) => {
   return (
-    <div>
-      <label>Battery Name:</label>
+    <div className="labelContainer">
+      <label className="label">Battery Name:</label>
       <input
+        className="input"
         type="text"
         value={name}
         onChange={(e) =>

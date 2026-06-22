@@ -38,10 +38,14 @@ const RecommendedBattery = ({ batteries }: RecommendedBatteryProps) => {
   const recommendedBattery = sortedCandidates[0];
 
   return (
-    <div>
-        Recommended Battery: {recommendedBattery?.name};
+    <div className="recommendedBatteryContainer">
+      <div className="label">Recommended Battery:</div>
+
+      <div className="recommendedBattery">
+        {recommendedBattery?.name ?? "None"}
+      </div>
     </div>
-  )
+  );
 };
 
 export default RecommendedBattery;

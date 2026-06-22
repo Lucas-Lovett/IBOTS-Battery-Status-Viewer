@@ -13,17 +13,21 @@ const BatteryNotes = ({
   setBatteries,
 }: BatteryNotesProps) => {
   return (
-    <div>
-      <label>Notes:</label>
+    <div className="labelContainer">
+      <label className="label">Notes:</label>
       <textarea
+        className="textarea"
         value={notes}
-        onChange={(e) =>
+        onChange={(e) => {
+          e.target.style.height = "auto";
+          e.target.style.height = `${e.target.scrollHeight}px`;
+
           setBatteries((prev) =>
             prev.map((b, i) =>
               i === batteryIndex ? { ...b, notes: e.target.value } : b,
             ),
-          )
-        }
+          );
+        }}
       />
     </div>
   );

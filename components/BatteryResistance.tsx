@@ -13,9 +13,10 @@ const BatteryResistance = ({
   updateBattery,
 }: BatteryResistanceProps) => {
   return (
-    <div>
-      <label>Battery Resistance:</label>
+    <div className="labelContainer">
+      <label className="label">Battery Resistance:</label>
       <input
+        className="input"
         type="number"
         value={resistance}
         onChange={(e) =>

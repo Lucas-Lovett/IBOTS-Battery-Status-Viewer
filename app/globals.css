@@ -1,7 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #252525;
+  --bg: #191919;
+
+  --fontColor: white;
+  --infoTextColor: #ccc;
+  --recommendedText: #97d700;
+
+  --textBorder: #555;
+  --border: #97d700;
+
+  --cardBackground: #2d2d2d;
+
+  --textBackground: #1a1a1a;
+
+  --buttonIdleBackground: #1a1a1a;
+  --buttonHoverBackground: #303030;
+  --buttonSelectedBackground: #434343;
 }
 
 * {
@@ -11,4 +26,153 @@
 body {
   background: var(--bg);
   font-family: Inter, sans-serif;
+}
+
+.recommendedBatteryContainer {
+  position: relative;
+  border: 3px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+  background: var(--cardBackground);
+}
+
+.recommendedBatteryContainer .label {
+  font-size: 1.2rem;
+  color: var(--recommendedText);
+  margin-bottom: 12px;
+}
+
+.recommendedBattery {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--fontColor);
+}
+
+.statusCards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .statusCards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.statusCard {
+  border: 3px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  background: var(--cardBackground);
+}
+
+.statusCard > * {
+  margin-bottom: 12px;
+}
+
+.statusCard:hover {
+  transform: translateY(-5px);
+}
+
+.labelContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--fontColor);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 8px;
+  background: var(--textBackground);
+  color: var(--textColor);
+  border: 2px solid var(--textBorder);
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: var(--border);
+  outline: none;
+}
+
+.textarea {
+  resize: none;
+  overflow: hidden;
+  width: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.statusButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.statusButtons button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  background: var(--buttonIdleBackground);
+}
+
+.statusButtons button:hover {
+  transform: translateY(-2px);
+  background: var(--buttonHoverBackground);
+}
+
+.statusButtons button[data-active="true"] {
+  background: var(--buttonSelectedBackground);
+}
+
+.batteryInfo {
+  color: var(--infoTextColor);
+  font-size: 14px;
+}
+
+.button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  background: var(--buttonIdleBackground);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  background: var(--buttonHoverBackground);
+}
+
+.utilityButtons {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  gap: 32px;
+}
+
+.statusCard,
+.button,
+.textarea,
+.input,
+.statusButtons button {
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
 }

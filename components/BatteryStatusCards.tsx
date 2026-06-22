@@ -25,8 +25,7 @@ const defaultBatteries: Battery[] = Array.from({ length: 12 }, () => ({
 }));
 
 const BatteryStatusCards = () => {
-  const [batteries, setBatteries] =
-    React.useState<Battery[]>(defaultBatteries);
+  const [batteries, setBatteries] = React.useState<Battery[]>(defaultBatteries);
 
   const [isLoaded, setIsLoaded] = React.useState(false);
 
@@ -40,8 +39,7 @@ const BatteryStatusCards = () => {
         const parsed = JSON.parse(saved) as Battery[];
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setBatteries(parsed);
-      } catch {
-      }
+      } catch {}
     }
 
     setIsLoaded(true);
@@ -61,8 +59,8 @@ const BatteryStatusCards = () => {
               ...changes,
               lastChecked: new Date().toLocaleTimeString(),
             }
-          : b
-      )
+          : b,
+      ),
     );
   };
 
@@ -70,9 +68,9 @@ const BatteryStatusCards = () => {
     <div>
       <RecommendedBattery batteries={batteries} />
 
-      <div>
+      <div className="statusCards">
         {batteries.map((battery, index) => (
-          <div key={index}>
+          <div className="statusCard" key={index}>
             <BatteryName
               name={battery.name}
               batteryIndex={index}
@@ -97,7 +95,9 @@ const BatteryStatusCards = () => {
               updateBattery={updateBattery}
             />
 
-            <div>Last used {battery.lastUsed} matches ago</div>
+            <div className="batteryInfo">
+              Last used {battery.lastUsed} matches ago
+            </div>
 
             <BatteryUsed
               batteryIndex={index}
@@ -106,7 +106,7 @@ const BatteryStatusCards = () => {
               setHistory={setHistory}
             />
 
-            <div>
+            <div className="batteryInfo">
               Battery last checked at: {battery.lastChecked}
             </div>
 
@@ -119,7 +119,7 @@ const BatteryStatusCards = () => {
         ))}
       </div>
 
-      <div>
+      <div className="utilityButtons">
         <ResetInfo setBatteries={setBatteries} setHistory={setHistory} />
         <UndoBatteryUsed setHistory={setHistory} setBatteries={setBatteries} />
       </div>
